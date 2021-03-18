@@ -7,7 +7,6 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 
 //TODO : READ FROM EXCEL
-//gfdgdf
 namespace PDF_Text_Stamper
 {
     public partial class Form1 : Form
