@@ -50,6 +50,7 @@ namespace PDF_Text_Stamper
             // buttonStamp
             // 
             this.buttonStamp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStamp.Enabled = false;
             this.buttonStamp.Location = new System.Drawing.Point(395, 100);
             this.buttonStamp.Name = "buttonStamp";
             this.buttonStamp.Size = new System.Drawing.Size(75, 23);
