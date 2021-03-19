@@ -6,6 +6,7 @@ using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using System.Collections.Generic;
+using OfficeOpenXml;
 
 //TODO : READ FROM EXCEL
 namespace PDF_Text_Stamper
@@ -14,8 +15,8 @@ namespace PDF_Text_Stamper
     {
         public Form1()
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             InitializeComponent();
-
         }
 
         //Stamp text to PDF

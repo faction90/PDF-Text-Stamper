@@ -32,3 +32,14 @@ C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF
 C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\obj\Debug\net5.0-windows\ref\PDF Text Stamper.dll
 C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\obj\Debug\net5.0-windows\PDF Text Stamper.pdb
 C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\obj\Debug\net5.0-windows\PDF Text Stamper.genruntimeconfig.cache
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\EPPlus.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.Extensions.Configuration.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\Julien\Documents\Test PDF Writing\PDF Text Stamper\PDF Text Stamper\PDF Text Stamper\bin\Debug\net5.0-windows\System.Xml.XPath.XmlDocument.dll

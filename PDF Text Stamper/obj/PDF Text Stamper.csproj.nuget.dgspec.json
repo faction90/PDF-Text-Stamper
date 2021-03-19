@@ -44,6 +44,10 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            },
             "itext7": {
               "target": "Package",
               "version": "[7.1.14, )"
