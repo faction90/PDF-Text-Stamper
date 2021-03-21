@@ -3,9 +3,8 @@
     public class SpInfoBase
     {
         public string SpFileName { get; set; }
-        public int SpQuantity { get; set; }
+        public string SpQuantity { get; set; }
         public string SpColor { get; set; }
-        public bool SpStatus { get; set; } = false;
+        public string SpStatus { get; set; }
     }
-
 }

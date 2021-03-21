@@ -7,6 +7,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using System.Collections.Generic;
 using OfficeOpenXml;
+using System.Threading.Tasks;
 
 //TODO : READ FROM EXCEL
 namespace PDF_Text_Stamper
@@ -39,7 +40,7 @@ namespace PDF_Text_Stamper
         //Get all file in the folder and stamp them
         //TODO : validate path
         //       Add proper sufix to file and/or create new directory
-        private void buttonStamp_Click(object sender, System.EventArgs e)
+        private async void buttonStamp_Click(object sender, System.EventArgs e)
         {
 
             if (Directory.Exists(folderBrowserDialog1.SelectedPath))
@@ -47,28 +48,51 @@ namespace PDF_Text_Stamper
                 string[] fileEntries = Directory.GetFiles(folderBrowserDialog1.SelectedPath);
 
                 //Load info from excel file DATA.xlsx
+                var file = new FileInfo(folderBrowserDialog1.SelectedPath + "\\Data.xlsx");
+                List<SpInfoBase> infoToStamp = await LoadExcelFile(file);
 
-                //---------------------------------------------------
-                //List<SpInfoBase> infoToStamp = new()
-                //{
-                //    new SpInfoBase{ SpFileName="TEST", SpQuantity=5, SpColor="Jaune"},
-                //    new SpInfoBase{ SpFileName="TEST2", SpQuantity=1, SpColor="Bleu"}
-                //};
-
-                //MessageBox.Show(infoToStamp[1].SpFileName);
-                //---------------------------------------------------
-
-                //Stamp all PDF in folder
-                foreach (string fileName in fileEntries)
+                foreach (var sp in infoToStamp)
                 {
-                    if (Path.GetExtension(fileName).ToUpper() == ".PDF")
-                    {
-                        PdfDocument pdfDoc = new PdfDocument(new PdfReader(fileName), new PdfWriter(fileName + "_M.pdf"));
-                        StampPDF(pdfDoc,"FT21-001","Julien Tremblay",4,"Ral 1023");
-                    }
+
                 }
+
+                ////Stamp all PDF in folder
+                //foreach (string fileName in fileEntries)
+                //{
+                //    if (Path.GetExtension(fileName).ToUpper() == ".PDF")
+                //    {
+                //        PdfDocument pdfDoc = new PdfDocument(new PdfReader(fileName), new PdfWriter(fileName + "_M.pdf"));
+                //        StampPDF(pdfDoc,"FT21-001","Julien Tremblay",4,"Ral 1023");
+                //    }
+                //}
                 infoStampStatus.Text = "Fini!";
             }
+        }
+
+        private static async Task<List<SpInfoBase>> LoadExcelFile(FileInfo file)
+        {
+            List<SpInfoBase> output = new();
+
+            using var package = new ExcelPackage(file);
+
+            await package.LoadAsync(file);
+
+            var ws = package.Workbook.Worksheets[0];
+
+            int row = 5;
+            int col = 1;
+
+            while (string.IsNullOrWhiteSpace(ws.Cells[row,col].Value?.ToString()) == false)
+            {
+                SpInfoBase sp = new();
+                sp.SpFileName = ws.Cells[row, col].Value.ToString();
+                sp.SpQuantity = ws.Cells[row, col + 1].Value.ToString();
+                sp.SpColor = ws.Cells[row, col + 2].Value.ToString();
+                output.Add(sp);
+                row += 1;
+            }
+
+            return output;
         }
 
         private void Form1_Load(object sender, EventArgs e)
