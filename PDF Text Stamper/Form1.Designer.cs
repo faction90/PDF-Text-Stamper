@@ -42,7 +42,7 @@ namespace PDF_Text_Stamper
             // 
             this.buttonStamp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStamp.Enabled = false;
-            this.buttonStamp.Location = new System.Drawing.Point(394, 42);
+            this.buttonStamp.Location = new System.Drawing.Point(553, 42);
             this.buttonStamp.Name = "buttonStamp";
             this.buttonStamp.Size = new System.Drawing.Size(75, 23);
             this.buttonStamp.TabIndex = 1;
@@ -53,7 +53,7 @@ namespace PDF_Text_Stamper
             // buttonBrowse
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowse.Location = new System.Drawing.Point(394, 13);
+            this.buttonBrowse.Location = new System.Drawing.Point(553, 13);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
             this.buttonBrowse.TabIndex = 3;
@@ -68,7 +68,7 @@ namespace PDF_Text_Stamper
             this.textBox3.Location = new System.Drawing.Point(13, 13);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(375, 23);
+            this.textBox3.Size = new System.Drawing.Size(534, 23);
             this.textBox3.TabIndex = 4;
             // 
             // label1
@@ -94,7 +94,7 @@ namespace PDF_Text_Stamper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(481, 76);
+            this.ClientSize = new System.Drawing.Size(640, 76);
             this.Controls.Add(this.infoStampStatus);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox3);

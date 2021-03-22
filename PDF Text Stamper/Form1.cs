@@ -7,9 +7,11 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using System.Collections.Generic;
 using OfficeOpenXml;
-using System.Threading.Tasks;
 
-//TODO : READ FROM EXCEL
+//-----------------------------------------------------------
+//TODO add test for file exist (Excel and pdf)
+//-----------------------------------------------------------
+
 namespace PDF_Text_Stamper
 {
     public partial class Form1 : Form
@@ -21,12 +23,14 @@ namespace PDF_Text_Stamper
         }
 
         //Stamp text to PDF
-        //TODO : add parameter for font, size, position
         private void StampPDF(PdfDocument pdfDoc, string project, string mepBy, string qty, string color)
         {
             int nbOfPages = pdfDoc.GetNumberOfPages();
             for (int i = 1; i <= nbOfPages; i++)
             {
+                //-----------------------------------------------------------
+                //TODO find the wright coordinate for the test to stamp
+                //-----------------------------------------------------------
                 //Add text
                 PdfCanvas canvas = new PdfCanvas(pdfDoc.GetPage(i));
                 canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12).MoveText(0, 0).ShowText(project).EndText();
@@ -37,22 +41,23 @@ namespace PDF_Text_Stamper
             pdfDoc.Close();
         }
 
-        //Get all file in the folder and stamp them
-        //TODO : validate path
-        //       Add proper sufix to file and/or create new directory
-        private async void buttonStamp_Click(object sender, System.EventArgs e)
+        private void buttonStamp_Click(object sender, System.EventArgs e)
         {
-
-            //await DoAllTheWork();
-
             if (Directory.Exists(folderBrowserDialog1.SelectedPath))
             {
+                //-------------------------------------------------
+                //TODO check if Data.xlsx exist in folder
                 //string[] fileEntries = Directory.GetFiles(folderBrowserDialog1.SelectedPath);
-
+                //-------------------------------------------------
                 //Load info from excel file DATA.xlsx
                 var file = new FileInfo(folderBrowserDialog1.SelectedPath + "\\Data.xlsx");
-                List<SpInfoBase> infoToStamp = await LoadExcelFile(file);
+                List<SpInfoBase> infoToStamp = LoadExcelFile(file);
 
+                //-------------------------------------------------
+                //TODO check if pdf vs excel list exist, if not change sp.SpStatus = "File Not Found!!!";
+                // make check not case sensitive?
+                //-------------------------------------------------
+                //Stamp each file found in excel
                 foreach (var sp in infoToStamp)
                 {
                     string currentPdf = folderBrowserDialog1.SelectedPath + "\\" + sp.SpFileName + ".pdf";
@@ -64,18 +69,14 @@ namespace PDF_Text_Stamper
                 }
 
                 //Save Status To Data.xlsx
-                await SaveStatus(infoToStamp, file);
+                SaveStatus(infoToStamp, file);
 
+                //Let user know stamp is complete
                 infoStampStatus.Text = "Fini!";
             }
         }
 
-        private Task DoAllTheWork()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static async Task SaveStatus(List<SpInfoBase> infoToStamp, FileInfo file)
+        private static void SaveStatus(List<SpInfoBase> infoToStamp, FileInfo file)
         {
             using (var package = new ExcelPackage(file))
             {
@@ -89,19 +90,16 @@ namespace PDF_Text_Stamper
                     ws.Cells[row, col].Value = sp.SpStatus;
                     row++;
                 }
-
-                await package.SaveAsync();
+                package.Save();
             }
         }
 
-        private static async Task<List<SpInfoBase>> LoadExcelFile(FileInfo file)
+        private static List<SpInfoBase> LoadExcelFile(FileInfo file)
         {
             List<SpInfoBase> output = new();
 
             using (var package = new ExcelPackage(file))
             {
-                await package.LoadAsync(file);
-
                 var ws = package.Workbook.Worksheets[0];
 
                 int row = 5;
