@@ -22,7 +22,7 @@ namespace PDF_Text_Stamper
 
         //Stamp text to PDF
         //TODO : add parameter for font, size, position
-        private void StampPDF(PdfDocument pdfDoc, string project, string mepBy, int qty, string color)
+        private void StampPDF(PdfDocument pdfDoc, string project, string mepBy, string qty, string color)
         {
             int nbOfPages = pdfDoc.GetNumberOfPages();
             for (int i = 1; i <= nbOfPages; i++)
@@ -53,7 +53,12 @@ namespace PDF_Text_Stamper
 
                 foreach (var sp in infoToStamp)
                 {
+                    string currentPdf = folderBrowserDialog1.SelectedPath + "\\" + sp.SpFileName + ".pdf";
+                    string newPdf = folderBrowserDialog1.SelectedPath + "\\" + sp.SpFileName + "_M.pdf";
 
+                    PdfDocument pdfDoc = new PdfDocument(new PdfReader(currentPdf), new PdfWriter(newPdf));
+                    StampPDF(pdfDoc, "FT21-001", "Julien Tremblay", sp.SpQuantity, sp.SpColor);
+                    sp.SpStatus = "Stamped";
                 }
 
                 ////Stamp all PDF in folder
