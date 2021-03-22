@@ -43,9 +43,11 @@ namespace PDF_Text_Stamper
         private async void buttonStamp_Click(object sender, System.EventArgs e)
         {
 
+            //await DoAllTheWork();
+
             if (Directory.Exists(folderBrowserDialog1.SelectedPath))
             {
-                string[] fileEntries = Directory.GetFiles(folderBrowserDialog1.SelectedPath);
+                //string[] fileEntries = Directory.GetFiles(folderBrowserDialog1.SelectedPath);
 
                 //Load info from excel file DATA.xlsx
                 var file = new FileInfo(folderBrowserDialog1.SelectedPath + "\\Data.xlsx");
@@ -57,20 +59,38 @@ namespace PDF_Text_Stamper
                     string newPdf = folderBrowserDialog1.SelectedPath + "\\" + sp.SpFileName + "_M.pdf";
 
                     PdfDocument pdfDoc = new PdfDocument(new PdfReader(currentPdf), new PdfWriter(newPdf));
-                    StampPDF(pdfDoc, "FT21-001", "Julien Tremblay", sp.SpQuantity, sp.SpColor);
+                    StampPDF(pdfDoc, sp.SpProject, sp.SpMepBy, sp.SpQuantity, sp.SpColor);
                     sp.SpStatus = "Stamped";
                 }
 
-                ////Stamp all PDF in folder
-                //foreach (string fileName in fileEntries)
-                //{
-                //    if (Path.GetExtension(fileName).ToUpper() == ".PDF")
-                //    {
-                //        PdfDocument pdfDoc = new PdfDocument(new PdfReader(fileName), new PdfWriter(fileName + "_M.pdf"));
-                //        StampPDF(pdfDoc,"FT21-001","Julien Tremblay",4,"Ral 1023");
-                //    }
-                //}
+                //Save Status To Data.xlsx
+                await SaveStatus(infoToStamp, file);
+
                 infoStampStatus.Text = "Fini!";
+            }
+        }
+
+        private Task DoAllTheWork()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static async Task SaveStatus(List<SpInfoBase> infoToStamp, FileInfo file)
+        {
+            using (var package = new ExcelPackage(file))
+            {
+                var ws = package.Workbook.Worksheets[0];
+
+                int row = 5;
+                int col = 4;
+
+                foreach (var sp in infoToStamp)
+                {
+                    ws.Cells[row, col].Value = sp.SpStatus;
+                    row++;
+                }
+
+                await package.SaveAsync();
             }
         }
 
@@ -78,25 +98,29 @@ namespace PDF_Text_Stamper
         {
             List<SpInfoBase> output = new();
 
-            using var package = new ExcelPackage(file);
-
-            await package.LoadAsync(file);
-
-            var ws = package.Workbook.Worksheets[0];
-
-            int row = 5;
-            int col = 1;
-
-            while (string.IsNullOrWhiteSpace(ws.Cells[row,col].Value?.ToString()) == false)
+            using (var package = new ExcelPackage(file))
             {
-                SpInfoBase sp = new();
-                sp.SpFileName = ws.Cells[row, col].Value.ToString();
-                sp.SpQuantity = ws.Cells[row, col + 1].Value.ToString();
-                sp.SpColor = ws.Cells[row, col + 2].Value.ToString();
-                output.Add(sp);
-                row += 1;
-            }
+                await package.LoadAsync(file);
 
+                var ws = package.Workbook.Worksheets[0];
+
+                int row = 5;
+                int col = 1;
+
+                while (string.IsNullOrWhiteSpace(ws.Cells[row, col].Value?.ToString()) == false)
+                {
+                    SpInfoBase sp = new();
+                    sp.SpFileName = ws.Cells[row, col].Value.ToString();
+                    sp.SpQuantity = ws.Cells[row, col + 1].Value.ToString();
+                    sp.SpColor = ws.Cells[row, col + 2].Value.ToString();
+
+                    sp.SpProject = ws.Cells[1, 2].Value.ToString();
+                    sp.SpMepBy = ws.Cells[2, 2].Value.ToString();
+
+                    output.Add(sp);
+                    row += 1;
+                }
+            }
             return output;
         }
 
