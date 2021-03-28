@@ -71,8 +71,13 @@ namespace PDF_Text_Stamper
                         //Add text
                         PdfCanvas canvas = new(pdfDoc.GetPage(j));
 
-                        int posY = 0;
-                        int posYHeight = 15;
+                        //Change les proprietes du systeme de coordoner
+                        //a = scale width, b = inclinaison horizontal, c = inclinaison vertical,
+                        //d = scale height, e = position width, f = position height,
+                        canvas.ConcatMatrix(1, 0, 0, 1, 250, 250);
+
+                        int posY = 0; //Pos du coin bas gauche en référence au system de coordoner de ConcatMatrix
+                        int posYHeight = 15; //Hauteur entre chaque ligne
                         //loop print header [0]
                         for (int k = 1; k < matrixInfo[0].Count; k++)
                         {
@@ -85,8 +90,8 @@ namespace PDF_Text_Stamper
                             posY += posYHeight;
                         }
 
-                        posY = 0;
-                        int posX = 150;
+                        posY = 0; //Reinitialise la hauteur pour que les lignes soit alligner
+                        int posX = 150; //Largueur entre chaques colonnes
                         //loop print info [i]
                         for (int m = 1; m < matrixInfo[i].Count; m++)
                         {
@@ -113,7 +118,7 @@ namespace PDF_Text_Stamper
                     pdfDoc.Close();
                 }
                 //Fichier introuvable
-                else MessageBox.Show(String.Format("Le fichier {0} n'existe pas!", matrixInfo[i][0]));
+                else MessageBox.Show(String.Format("Le fichier \"{0}\" n'existe pas!", matrixInfo[i][0]));
             }
         }
 
