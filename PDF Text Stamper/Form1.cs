@@ -7,6 +7,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using System.Collections.Generic;
 using OfficeOpenXml;
+using iText.Kernel.Colors;
 
 //-----------------------------------------------------------
 //TODO add test for file exist (Excel and pdf)
@@ -37,6 +38,15 @@ namespace PDF_Text_Stamper
                 canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12).MoveText(50, 50).ShowText(mepBy).EndText();
                 canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12).MoveText(100, 100).ShowText(qty.ToString()).EndText();
                 canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12).MoveText(150, 150).ShowText(color).EndText();
+                Color magentaColor = new DeviceCmyk(0f, 1f, 0f, 0f);
+                //canvas
+                //.SetStrokeColor(magentaColor)
+                //.MoveTo(0, 0)
+                ////.LineTo(36, 806)
+                ////.LineTo(559, 36)
+                //.LineTo(100, 500)
+                //.ClosePathStroke();
+                canvas.SetStrokeColor(magentaColor).Rectangle(100, 100, 200, 100).SetLineWidth(1).Stroke();
             }
             pdfDoc.Close();
         }
@@ -51,8 +61,11 @@ namespace PDF_Text_Stamper
                 //-------------------------------------------------
                 //Load info from excel file DATA.xlsx
                 var file = new FileInfo(folderBrowserDialog1.SelectedPath + "\\Data.xlsx");
-                List<SpInfoBase> infoToStamp = LoadExcelFile(file);
+                //List<SpInfoBase> infoToStamp = LoadExcelFile(file);
+                List<List<String>> matrixInfo = LoadExcelToMatrix(file);
 
+                MessageBox.Show(matrixInfo[0][0]);
+                /*
                 //-------------------------------------------------
                 //TODO check if pdf vs excel list exist, if not change sp.SpStatus = "File Not Found!!!";
                 // make check not case sensitive?
@@ -73,25 +86,38 @@ namespace PDF_Text_Stamper
 
                 //Let user know stamp is complete
                 infoStampStatus.Text = "Fini!";
+                */
             }
         }
 
-        private static void SaveStatus(List<SpInfoBase> infoToStamp, FileInfo file)
+        private static List<List<string>> LoadExcelToMatrix(FileInfo file)
         {
+            List<List<String>> matrix = new(); //Creates new nested List
+
             using (var package = new ExcelPackage(file))
             {
                 var ws = package.Workbook.Worksheets[0];
 
-                int row = 5;
-                int col = 4;
+                int row = 4;
+                int col = 1;
 
-                foreach (var sp in infoToStamp)
+                int indexRow = 0;
+
+                while (string.IsNullOrWhiteSpace(ws.Cells[row, col].Value?.ToString()) == false)
                 {
-                    ws.Cells[row, col].Value = sp.SpStatus;
+                    matrix.Add(new List<String>());
+
+                    while (string.IsNullOrWhiteSpace(ws.Cells[row, col].Value?.ToString()) == false)
+                    {
+                        matrix[indexRow].Add(ws.Cells[row, col].Value.ToString());
+                        col++;
+                    }
+                    col = 1;
+                    indexRow++;
                     row++;
                 }
-                package.Save();
             }
+            return matrix;
         }
 
         private static List<SpInfoBase> LoadExcelFile(FileInfo file)
@@ -120,6 +146,24 @@ namespace PDF_Text_Stamper
                 }
             }
             return output;
+        }
+
+        private static void SaveStatus(List<SpInfoBase> infoToStamp, FileInfo file)
+        {
+            using (var package = new ExcelPackage(file))
+            {
+                var ws = package.Workbook.Worksheets[0];
+
+                int row = 5;
+                int col = 4;
+
+                foreach (var sp in infoToStamp)
+                {
+                    ws.Cells[row, col].Value = sp.SpStatus;
+                    row++;
+                }
+                package.Save();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
