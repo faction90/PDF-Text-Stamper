@@ -62,7 +62,7 @@ namespace PDF_Text_Stamper
                 //check si matrice[i][0] est un fichier qui existe
                 if (File.Exists(currentPdf))
                 {
-                    PdfDocument pdfDoc = new PdfDocument(new PdfReader(currentPdf), new PdfWriter(newPdf));
+                    PdfDocument pdfDoc = new(new PdfReader(currentPdf), new PdfWriter(newPdf));
 
                     //loop toutes les pages
                     int nbOfPages = pdfDoc.GetNumberOfPages();
