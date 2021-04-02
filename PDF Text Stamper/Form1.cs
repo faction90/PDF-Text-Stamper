@@ -76,10 +76,16 @@ namespace PDF_Text_Stamper
                         //d = scale height, e = position width, f = position height,
                         canvas.ConcatMatrix(1, 0, 0, 1, 250, 250);
 
+                        //----------------------------------------------------------------------------------------------------------------
+                        // TODO, Ajouter rectangle blanc avant d'écrire pour cacher s'il y avait du texte en dessous venant du cartouche de Solidworks.
+                        Color rectangleColor = new DeviceRgb(0, 0, 0);
+                        canvas.Rectangle(100, 100, 200, 100).SetColor(rectangleColor, true).Fill();
+                        //----------------------------------------------------------------------------------------------------------------
+
                         int posY = 0; //Pos du coin bas gauche en référence au system de coordoner de ConcatMatrix
                         int posYHeight = 15; //Hauteur entre chaque ligne
                         //loop print header [0]
-                        for (int k = 1; k < matrixInfo[0].Count; k++)
+                        for (int k = matrixInfo[0].Count-2; k >= 0; k--) //-2 to skip filename and array is base 0,so .Count is out of bound
                         {
                             canvas
                                 .BeginText()
@@ -93,7 +99,7 @@ namespace PDF_Text_Stamper
                         posY = 0; //Reinitialise la hauteur pour que les lignes soit alligner
                         int posX = 150; //Largueur entre chaques colonnes
                         //loop print info [i]
-                        for (int m = 1; m < matrixInfo[i].Count; m++)
+                        for (int m = matrixInfo[i].Count-2; m >= 0; m--) //-2 to skip filename and array is base 0,so .Count is out of bound
                         {
                             canvas
                                 .BeginText()
@@ -104,8 +110,6 @@ namespace PDF_Text_Stamper
                             posY += posYHeight;
                         }
 
-                        //stamp lines and rectangle ?
-                        //Color magentaColor = new DeviceCmyk(0f, 1f, 0f, 0f);
                         //canvas
                         //.SetStrokeColor(magentaColor)
                         //.MoveTo(0, 0)
@@ -113,7 +117,6 @@ namespace PDF_Text_Stamper
                         //.LineTo(559, 36)
                         //.LineTo(100, 500)
                         //.ClosePathStroke();
-                        //canvas.SetStrokeColor(magentaColor).Rectangle(100, 100, 200, 100).SetLineWidth(1).Stroke();
                     }
                     pdfDoc.Close();
                 }
