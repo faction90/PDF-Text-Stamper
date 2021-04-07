@@ -71,25 +71,39 @@ namespace PDF_Text_Stamper
                         //Add text
                         PdfCanvas canvas = new(pdfDoc.GetPage(j));
 
-                        //Change les proprietes du systeme de coordoner
-                        //a = scale width, b = inclinaison horizontal, c = inclinaison vertical,
-                        //d = scale height, e = position width, f = position height,
-                        canvas.ConcatMatrix(1, 0, 0, 1, 250, 250);
-
                         //----------------------------------------------------------------------------------------------------------------
                         // TODO, Ajouter rectangle blanc avant d'écrire pour cacher s'il y avait du texte en dessous venant du cartouche de Solidworks.
-                        Color rectangleColor = new DeviceRgb(0, 0, 0);
-                        canvas.Rectangle(100, 100, 200, 100).SetColor(rectangleColor, true).Fill();
+                        double canPosX = 13.7;
+                        double canPosY = 9.7;
+                        //Change les proprietes du systeme de coordoner
+                        //a = scale width, b = inclinaison horizontal, c = inclinaison vertical,
+                        //d = scale height, e = position width (x), f = position height (y),
+                        canvas.ConcatMatrix(1, 0, 0, 1, canPosX, canPosY);
+                        
+                        Color rectangleColor = new DeviceRgb(255, 255, 255);
+                        Color strokeColor = new DeviceRgb(0,0,0);
+                        canvas.Rectangle(0, 0, 177.5, 68).SetColor(rectangleColor, true)
+                            .SetLineWidth(0.5f).SetStrokeColor(strokeColor).FillStroke();
+                        //canvas
+                        //.SetStrokeColor(magentaColor)
+                        //.MoveTo(0, 0)
+                        //.LineTo(36, 806)
+                        //.LineTo(559, 36)
+                        //.LineTo(100, 500)
+                        //.ClosePathStroke();
                         //----------------------------------------------------------------------------------------------------------------
+
+                        canvas.ConcatMatrix(1, 0, 0, 1, 5, 3.9);
 
                         int posY = 0; //Pos du coin bas gauche en référence au system de coordoner de ConcatMatrix
                         int posYHeight = 15; //Hauteur entre chaque ligne
                         //loop print header [0]
-                        for (int k = matrixInfo[0].Count-2; k >= 0; k--) //-2 to skip filename and array is base 0,so .Count is out of bound
+                        for (int k = matrixInfo[0].Count - 2; k >= 0; k--) //-2 to skip filename and array is base 0,so .Count is out of bound
                         {
                             canvas
                                 .BeginText()
-                                .SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+                                .SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
+                                .SetColor(strokeColor,true)
                                 .MoveText(0, posY)
                                 .ShowText(matrixInfo[0][k])
                                 .EndText();
@@ -99,24 +113,16 @@ namespace PDF_Text_Stamper
                         posY = 0; //Reinitialise la hauteur pour que les lignes soit alligner
                         int posX = 150; //Largueur entre chaques colonnes
                         //loop print info [i]
-                        for (int m = matrixInfo[i].Count-2; m >= 0; m--) //-2 to skip filename and array is base 0,so .Count is out of bound
+                        for (int m = matrixInfo[i].Count - 2; m >= 0; m--) //-2 to skip filename and array is base 0,so .Count is out of bound
                         {
                             canvas
                                 .BeginText()
-                                .SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+                                .SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
                                 .MoveText(posX, posY)
                                 .ShowText(matrixInfo[i][m])
                                 .EndText();
                             posY += posYHeight;
                         }
-
-                        //canvas
-                        //.SetStrokeColor(magentaColor)
-                        //.MoveTo(0, 0)
-                        //.LineTo(36, 806)
-                        //.LineTo(559, 36)
-                        //.LineTo(100, 500)
-                        //.ClosePathStroke();
                     }
                     pdfDoc.Close();
                 }
