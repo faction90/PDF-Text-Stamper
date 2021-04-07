@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Julien\\Documents\\Test PDF Writing\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper.csproj": {}
+    "C:\\Users\\julien.tremblay\\Desktop\\PDF STAMPER\\PDF Text Stamper\\PDF Text Stamper.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Julien\\Documents\\Test PDF Writing\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper.csproj": {
+    "C:\\Users\\julien.tremblay\\Desktop\\PDF STAMPER\\PDF Text Stamper\\PDF Text Stamper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Julien\\Documents\\Test PDF Writing\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper.csproj",
+        "projectUniqueName": "C:\\Users\\julien.tremblay\\Desktop\\PDF STAMPER\\PDF Text Stamper\\PDF Text Stamper.csproj",
         "projectName": "PDF Text Stamper",
-        "projectPath": "C:\\Users\\Julien\\Documents\\Test PDF Writing\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper.csproj",
-        "packagesPath": "C:\\Users\\Julien\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Julien\\Documents\\Test PDF Writing\\PDF Text Stamper\\PDF Text Stamper\\PDF Text Stamper\\obj\\",
+        "projectPath": "C:\\Users\\julien.tremblay\\Desktop\\PDF STAMPER\\PDF Text Stamper\\PDF Text Stamper.csproj",
+        "packagesPath": "C:\\Users\\julien.tremblay\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julien.tremblay\\Desktop\\PDF STAMPER\\PDF Text Stamper\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Julien\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\julien.tremblay\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

@@ -71,7 +71,7 @@ namespace PDF_Text_Stamper
                         //Add text
                         PdfCanvas canvas = new(pdfDoc.GetPage(j));
 
-                        //----------------------------------------------------------------------------------------------------------------
+                        //-----------------------------------------------------------------------------------------------------------------
                         // TODO, Ajouter rectangle blanc avant d'écrire pour cacher s'il y avait du texte en dessous venant du cartouche de Solidworks.
                         double canPosX = 13.7;
                         double canPosY = 9.7;
@@ -91,7 +91,7 @@ namespace PDF_Text_Stamper
                         //.LineTo(559, 36)
                         //.LineTo(100, 500)
                         //.ClosePathStroke();
-                        //----------------------------------------------------------------------------------------------------------------
+                        //-----------------------------------------------------------------------------------------------------------------
 
                         canvas.ConcatMatrix(1, 0, 0, 1, 5, 3.9);
 
